@@ -17,6 +17,8 @@
 - [ArnoldCordewiner/searxng-docker](https://github.com/searxng/searxng-docker?tab=readme-ov-file)
 - [NullClaw/nullclaw.io](https://nullclaw.io/)
 - [Do/nullclaw](https://github.com/nullclaw/nullclaw/tree/main?tab=readme-ov-file)
+- [Do/nullclaw/docs/configuration.md](https://github.com/nullclaw/nullclaw/blob/main/docs/en/configuration.md)
+- [Do/nullclaw/docs/usage.md](https://github.com/nullclaw/nullclaw/blob/main/docs/en/usage.md)
 
 ## OpenClaw/NullClaw Repo Links
 
