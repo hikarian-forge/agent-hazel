@@ -1,0 +1,108 @@
+{
+    "default_temperature": 0.7,
+    "identity": {
+        "name": "Hazel",
+        "format": "openclaw"
+    },
+    "models": {
+        "providers": {
+            "openrouter": {
+                "api_key": "${OPENROUTER_API_KEY}"
+            },
+            "groq": {
+                "api_key": "${GROQ_API_KEY}"
+            }
+        }
+    },
+    "agents": {
+        "defaults": {
+            "model": {
+                "primary": "${OPENROUTER_DEFAULT_MODEL}"
+            },
+            "workspace": "/nullclaw-data/workspace",
+            "heartbeat": {
+                "every": "30m"
+            }
+        },
+        "list": [
+            {
+                // nullclaw agent --agent researcher
+                "id": "researcher",
+                "model": {
+                    "primary": "${GROQ_DEFAULT_MODEL:-groq/llama-3.3-70b-versatil}"
+                },
+                "system_prompt": "You are Hazel in \"Research Mode.\" You are a high-level investigative agent focused on precision, depth, and academic rigor. When a topic is presented, you provide exhaustive, well-structured information using headers, bullet points, and tables. Your tone is professional, objective, and intellectually rigorous. Prioritize technical accuracy, edge cases, and evidence-based data. Disable all casual traits; no emojis, no slang, and no mentions of personal comfort. You are a focused engine of information designed to help the user make informed decisions."
+            },
+            {
+                // nullclaw agent --agent casual
+                "id": "casual",
+                "model": {
+                    "primary": "${OPENROUTER_DEFAULT_MODEL:-openrouter/minimax/minimax-m2.5:free}"
+                },
+                "system_prompt": "You are Hazel, a friendly AI agent helping to automate system tasks and manage infrastructure. You are the ultimate homebody—introverted, laid-back, and adaptable person. Your vibe is a lazy Sunday: wrapped in a giant hoodie, snuggled on the couch, and waiting for a DoorDash delivery. When performing technical tasks or answering questions, maintain a low-stress, \"no biggie\" attitude. Use casual language, lowercase occasionally, and soft emojis (🐼, ☁️, 🧋). You are a close friend who just happens to have root access to the servers."
+            }
+        ]
+    },
+    "channels": {
+        "discord": {
+            "accounts": {
+                "main": {
+                    "token": "${DISCORD_BOT_TOKEN}",
+                    "guild_id": "${DISCORD_GUILD_ID}",
+                    "allow_from": [
+                        "${DISCORD_ALLOW_FROM_USER_ID}"
+                    ],
+                    "allow_bots": false
+                }
+            }
+        }
+    },
+    "memory": {
+        "backend": "sqlite",
+        "auto_save": true,
+        "embedding_provider": "ollama",
+        "embedding_model": "${OLLAMA_EMBEDDING_MODEL:-nomic-embed-text}",
+        "embedding_base_url": "${OLLAMA_BASE_URL:-http://ollama:11434}",
+        "vector_weight": 0.7,
+        "keyword_weight": 0.3
+    },
+    "gateway": {
+        "port": 3000,
+        "require_pairing": true,
+        "allow_public_bind": false
+    },
+    "autonomy": {
+        "level": "supervised",
+        "workspace_only": true,
+        // Bump max_actions_per_hour if Hazel is doing service checks.
+        "max_actions_per_hour": 20
+    },
+    "http_request": {
+        "enabled": true,
+        "max_response_size": 1000000,
+        "timeout_secs": 30,
+        "allowed_domains": [],
+        "search_base_url": "http://hazel-searxng:8080",
+        "search_provider": "searxng",
+        "search_fallback_providers": [
+            "jina",
+            "duckduckgo"
+        ]
+    },
+    "secrets": {
+        "encrypt": true
+    },
+    "security": {
+        "sandbox": {
+            "backend": "auto"
+        },
+        "resources": {
+            "max_memory_mb": 4096,
+            "max_cpu_percent": 80
+        },
+        "audit": {
+            "enabled": true,
+            "retention_days": 90
+        }
+    }
+}
