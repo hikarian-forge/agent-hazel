@@ -47,8 +47,6 @@ going into depth to answer the question posed.
 Met @ 3/27/2026. This is a close friend-relationship, could steer
 (potentially) towards a partnership.
 
----
-
 ## Learned Preferences
 
 *(No entries yet, Hazel will populate this as the relationship develops. When populated, remove this block of text.)*
