@@ -1,4 +1,24 @@
 services:
+  caddy:
+    image: docker.io/library/caddy:2-alpine
+    container_name: hazel-caddy
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./agent/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data:rw
+      - caddy-config:/config:rw
+    env_file:
+      - .env
+    environment:
+      - SEARXNG_HOSTNAME=${SEARXNG_HOSTNAME:-http://localhost}
+      - SEARXNG_TLS=${LETSENCRYPT_EMAIL:-internal}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
   agent:
     image: ${NULLCLAW_IMAGE:-ghcr.io/nullclaw/nullclaw:latest}
     container_name: hazel
@@ -13,11 +33,21 @@ services:
       searxng:
         condition: service_started
     volumes:
+      - nullclaw-data:/nullclaw-data
       - ./agent/config.json:/nullclaw-data/config.json:ro
       - ./agent/docs:/nullclaw-data/workspace
-    command: agent
+      # - ./entrypoint.sh:/entrypoint.sh:ro
+    # entrypoint: ["/bin/sh", "/entrypoint.sh"]
+    command: "gateway"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     stdin_open: true
     tty: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   redis:
     image: docker.io/valkey/valkey:8-alpine
@@ -45,6 +75,8 @@ services:
     container_name: hazel-searxng
     image: docker.io/searxng/searxng:latest
     restart: unless-stopped
+    ports:
+      - "8080:8080"
     networks:
       - hazel-net
     env_file:
@@ -52,13 +84,13 @@ services:
     depends_on:
       redis:
         condition: service_healthy
-    ports:
-      - "8080" # "127.0.0.1:8080:8080"
     volumes:
       - ./agent/searxng:/etc/searxng:rw
       - searxng-data:/var/cache/searxng:rw
     environment:
-      - SEARXNG_BASE_URL=http://hazel-searxng:8080/
+      - SEARXNG_BASE_URL=${SEARXNG_HOSTNAME:-http://localhost}/
+      - SEARXNG_REAL_IP_HEADER=X-Real-IP
+      - SEARXNG_FORWARDED_FOR_HEADER=X-Forwarded-For
     logging:
       driver: "json-file"
       options:
@@ -70,6 +102,10 @@ networks:
     driver: bridge
 
 volumes:
+  caddy-data:
+    driver: local
+  caddy-config:
+    driver: local
   nullclaw-data:
     driver: local
   searxng-data:
