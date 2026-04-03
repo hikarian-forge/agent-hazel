@@ -38,13 +38,14 @@ fi
 
 if [ ! -f "${ENV_FILE}" ]; then
   cp "${ENV_SAMPLE}" "${ENV_FILE}"
-  echo "Created .env from .env.sample"
+  info "Created .env from .env.sample"
 else
-  echo ".env already exists; keeping current values"
+  info ".env already exists; keeping current values"
 fi
 
-echo "Starting fresh containers..."
+info  "Starting fresh containers from compose.yml..."
+
 docker compose -f "${ROOT_DIR}/compose.yml" down --remove-orphans
 docker compose -f "${ROOT_DIR}/compose.yml" up -d --force-recreate
 
-info "Done. Services are running in detached mode."
+info "Done! Services are running in detached mode."

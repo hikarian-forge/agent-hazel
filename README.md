@@ -1,7 +1,9 @@
 [![Docker](https://img.shields.io/badge/-Docker-black?style=flat&logo=docker&logoColor=2496ED)]()
-[![Nullclaw](https://img.shields.io/badge/-Nullclaw-black?style=flat&logo=github&logoColor=white)]()
-[![SearXNG](https://img.shields.io/badge/-SearXNG-black?style=flat&logo=search&logoColor=white)]()
+[![Nullclaw](https://img.shields.io/badge/-Nullclaw-black?style=flat&logo=github&logoColor=white)](https://github.com/nullclaw/nullclaw)
+[![SearXNG](https://img.shields.io/badge/-SearXNG-black?style=flat&logo=duckduckgo&logoColor=white)]()
 [![Valkey](https://img.shields.io/badge/-Valkey-black?style=flat&logo=redis&logoColor=white)]()
+
+![Hazel Demo](./.github/demo/hazel-demo.gif)
 
 <div align="start">
   <img src="./.github/assets/hazel-logo.png" alt="Hazel Logo" width="200" height="200"/>
@@ -40,9 +42,9 @@ with Discord integration for conversational interaction when desired.
 
 - [Hazel](#hazel)
   - [Table of Contents](#table-of-contents)
-  - [Architecture & Features Overview](#architecture--features-overview)
+  - [Architecture \& Features Overview](#architecture--features-overview)
   - [Installation](#installation)
-    - [Hazel Environment Variables](#hazel-environment-variables)
+  - [Hazel Environment Variables](#hazel-environment-variables)
   - [Documentation](#documentation)
   - [System Requirements](#system-requirements)
   - [Contact/Socials for Hazel](#contactsocials-for-hazel)

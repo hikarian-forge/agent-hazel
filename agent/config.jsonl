@@ -83,9 +83,7 @@
                     "require_mention": true,
                     "guilds": {
                         "@": {
-                            "users": [
-                                "@"
-                            ],
+                            "users": ["@"],
                             "channels": {
                                 "*": {
                                     "allow": true
@@ -96,10 +94,22 @@
                     "dm": {
                         "enabled": true,
                         "policy": "allowlist",
-                        "allow_from": [
-                            "@"
-                        ]
+                        "allow_from": ["@"]
                     }
+                }
+            }
+        },
+        "telegram": {
+            "accounts": {
+                "main": {
+                    "enabled": true,
+                    "autostart": true,
+                    "agent": "casual",
+                    "bot_token": "@",
+                    "allow_from": ["@"],
+                    "group_allow_from": ["@"],
+                    "reply_in_private": true,
+                    "proxy": null
                 }
             }
         }
@@ -119,9 +129,13 @@
         "allow_public_bind": false
     },
     "autonomy": {
-        "level": "autonomous",
+        "level": "full",
+        "allowed_commands": ["*"],
+        "allowed_paths": ["*"],
         "workspace_only": false,
-        "max_actions_per_hour": 20
+        "max_actions_per_hour": 20,
+        "require_approval_for_medium_risk": true,
+        "block_high_risk_commands": true
     },
     "http_request": {
         "enabled": true,
@@ -129,9 +143,10 @@
         "timeout_secs": 30,
         "allowed_domains": [],
         "search_base_url": "http://localhost:8080/search",
-        "search_provider": "searxng",
+        "search_provider": "auto",
         "search_fallback_providers": [
-            "duckduckgo"
+            "duckduckgo",
+            "searxng"
         ]
     },
     "secrets": {

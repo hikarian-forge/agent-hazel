@@ -1,4 +1,25 @@
+use_default_settings: true
+
 search:
   formats:
     - html
     - json
+  safe_search: 0
+  autocomplete: ""
+
+server:
+  secret_key: "Zrhka8SPO26vnq9Dz5s1PYLRdFQsGBcX"
+  forwarded_for_header: X-Forwarded-For
+  real_ip_header: X-Real-IP
+  limiter: false
+  image_proxy: false
+  method: "GET"
+
+valkey:
+  url: valkey://hazel-redis:6379/0
+
+engines:
+  - name: ahmia
+    disabled: true
+  - name: torch
+    disabled: true
