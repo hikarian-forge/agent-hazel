@@ -104,6 +104,19 @@
             }
         }
     },
+    "mcp_servers": {
+        "dokploy-mcp": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@ahdev/dokploy-mcp"
+            ],
+            "env": {
+                "DOKPLOY_URL": "@",
+                "DOKPLOY_API_KEY": "@"
+            }
+        }
+    },
     "memory": {
         "backend": "sqlite",
         "auto_save": true,
@@ -127,7 +140,9 @@
         "enabled": true,
         "max_response_size": 1000000,
         "timeout_secs": 30,
-        "allowed_domains": [],
+        "allowed_domains": [
+            "dokploy.hikue.dev"
+        ],
         "search_base_url": "http://localhost:8080/search",
         "search_provider": "searxng",
         "search_fallback_providers": [
