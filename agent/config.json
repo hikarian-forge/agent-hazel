@@ -102,25 +102,6 @@
                     }
                 }
             }
-        },
-        "telegram": {
-            "accounts": {
-                "main": {
-                    "enabled": true,
-                    "autostart": true,
-                    "agent": "casual",
-                    "bot_token": "@",
-                    "allow_from": [
-                        "8656262564",
-                        "8793875421"
-                    ],
-                    "group_allow_from": [
-                        "-1003738636202"
-                    ],
-                    "reply_in_private": true,
-                    "proxy": null
-                }
-            }
         }
     },
     "memory": {
